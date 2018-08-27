@@ -45,21 +45,7 @@ class AcpayAPI {
         return false;
     }
 
-    public function get_deposit_address(&$result, $currency) {
-        $result = null;
-        $params = array();
-        $params['currency'] = $currency;
-        $call = $this->call('get_deposit_address',$params);
-        if ($call && is_array($call)) {
-            $result = $call;
-            if ($call['valid']===true) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function get_payment_address(&$result, $currency, $etc=array()) {
+    public function get_deposit_address(&$result, $currency, $etc=array()) {
         $result = null;
         $params = array();
         $params['currency'] = $currency;
@@ -68,7 +54,7 @@ class AcpayAPI {
                 $params[$key] = $value;
             }
         }
-        $call = $this->call('get_payment_address',$params);
+        $call = $this->call('get_deposit_address',$params);
         if ($call && is_array($call)) {
             $result = $call;
             if ($call['valid']===true) {

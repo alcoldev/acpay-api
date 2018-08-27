@@ -12,8 +12,7 @@ function required_params_check(&$param) {
     if (empty($param['version'])) return FALSE;
     if (empty($param['auth'])) return FALSE;
     if (empty($param['type'])) return FALSE;
-    if (empty($param['status_code'])) return FALSE;
-    if (empty($param['status_text'])) return FALSE;
+    if (empty($param['status'])) return FALSE;
     if (empty($param['currency'])) return FALSE;
     return TRUE;
 }
@@ -52,24 +51,45 @@ else {
 }
 
 $type = $_POST['type'];
-$status_code = intval($_POST['status_code']);
+$status = intval($_POST['status']);
 
-if ($type=='payment') {
+if ($type=='deposit') {
+    $ref_id = !empty($_POST['ref_id'])?$_POST['ref_id']:'';
+    $transaction_hash = !empty($_POST['transaction_hash'])?$_POST['transaction_hash']:'';
+    $transaction_amount = !empty($_POST['transaction_amount'])?floatval($_POST['transaction_amount']):0;
+    $transaction_to = !empty($_POST['transaction_to'])?$_POST['transaction_to']:'';
+    $confirmations = !empty($_POST['confirmations'])?intval($_POST['confirmations']):0;
+    $custom1 = !empty($_POST['custom1'])?$_POST['custom1']:'';
+    $custom2 = !empty($_POST['custom2'])?$_POST['custom2']:'';
+    $custom3 = !empty($_POST['custom3'])?$_POST['custom3']:'';
+    if ($status == 200 || $status == 201) {
+        if ($confirmations>=5) {
+            // Payment example
+            $deposit_id = 'N291102';
+            $deposit_amount = 2.3;
+            if ($custom1==$deposit_id && $transaction_amount==$deposit_amount) {
+                // done
+                done();
+            }
+        }
+    }
+}
+else if ($type=='payment') {
     $payment_id = !empty($_POST['payment_id'])?$_POST['payment_id']:'';
     $ref_id = !empty($_POST['ref_id'])?$_POST['ref_id']:'';
     $transaction_hash = !empty($_POST['transaction_hash'])?$_POST['transaction_hash']:'';
     $transaction_amount = !empty($_POST['transaction_amount'])?floatval($_POST['transaction_amount']):0;
     $transaction_to = !empty($_POST['transaction_to'])?$_POST['transaction_to']:'';
     $confirmations = !empty($_POST['confirmations'])?intval($_POST['confirmations']):0;
-    $custom_field1 = !empty($_POST['custom_field1'])?$_POST['custom_field1']:'';
-    $custom_field2 = !empty($_POST['custom_field2'])?$_POST['custom_field2']:'';
-    $custom_field3 = !empty($_POST['custom_field3'])?$_POST['custom_field3']:'';
-    if ($status_code == 200) {
-        if ($confirmations>=3) {
+    $custom1 = !empty($_POST['custom1'])?$_POST['custom1']:'';
+    $custom2 = !empty($_POST['custom2'])?$_POST['custom2']:'';
+    $custom3 = !empty($_POST['custom3'])?$_POST['custom3']:'';
+    if ($status == 200 || $status == 201) {
+        if ($confirmations>=5) {
             // Payment example
             $order_id = 'N399281';
             $order_amount = 2.3;
-            if ($custom_field1==$order_id && $transaction_amount==$order_amount) {
+            if ($custom1==$order_id && $transaction_amount==$order_amount) {
                 // done
                 done();
             }
@@ -81,13 +101,13 @@ else if ($type=='withdrawal') {
     $transaction_hash = !empty($_POST['transaction_hash'])?$_POST['transaction_hash']:'';
     $transaction_amount = !empty($_POST['transaction_amount'])?floatval($_POST['transaction_amount']):0;
     $transaction_to = !empty($_POST['transaction_to'])?$_POST['transaction_to']:'';
-    $custom_field1 = !empty($_POST['custom_field1'])?$_POST['custom_field1']:'';
-    $custom_field2 = !empty($_POST['custom_field2'])?$_POST['custom_field2']:'';
-    $custom_field3 = !empty($_POST['custom_field3'])?$_POST['custom_field3']:'';
-    if ($status_code == 200) {
+    $custom1 = !empty($_POST['custom1'])?$_POST['custom1']:'';
+    $custom2 = !empty($_POST['custom2'])?$_POST['custom2']:'';
+    $custom3 = !empty($_POST['custom3'])?$_POST['custom3']:'';
+    if ($status == 200 || $status == 201) {
         // Withdrawal example
         $withdraw_id = 'bad2c5d9e43f355c0a';
-        if ($custom_field1==$withdraw_id) {
+        if ($custom1==$withdraw_id) {
             // done
             done();
         }

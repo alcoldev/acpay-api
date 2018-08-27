@@ -255,53 +255,6 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 	<tbody>
 		<tr>
 			<td>request</td>
-			<td>get_deposit_address</td>
-			<td><strong>Yes</strong></td>
-		</tr>
-		<tr>
-			<td>currency</td>
-			<td>Crypto currency to accept (btc, eth, ltc, usdt, bdc, alc)</td>
-			<td><strong>Yes</strong></td>
-		</tr>
-	</tbody>
-</table>
-
-__Example request:__
-
-`POST: key=api_public_key&version=1&request=get_deposit_address&currency=btc`
-
-__Response:__
-
-The API always responds with a JSON string. [data] collection contains the important values:
-* __[address]__ is the deposit address to show to the customer.
-
-__Response example:__
-
-```json
-{
-    "valid": true,
-    "result": {
-        "address": "0x2073eb3be1a41908e0353427da7f16412a01ae71"
-    }
-}
-```
-
-## Get Payment Address
-
-__Parameters:__
-
-API POST Fields (in addition to the Main Fields described in the <a href="#api-request">API Request</a>)
-<table>
-	<thead>
-		<tr>
-			<th>Field</th>
-			<th>Description</th>
-			<th>Required</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>request</td>
 			<td>get_payment_address</td>
 			<td><strong>Yes</strong></td>
 		</tr>
@@ -310,24 +263,29 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 			<td>Crypto currency to accept (btc, eth, ltc, usdt, bch, bdc, alc)</td>
 			<td><strong>Yes</strong></td>
 		</tr>
+        <tr>
+			<td>callback</td>
+			<td>Callback true or false (Default: false)</td>
+			<td>No</td>
+		</tr>
 		<tr>
 			<td>callback_url</td>
 			<td>URL for your callbacks. If not set it will use the callback url in your Edit Settings page if you have one set.</td>
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom_field1</td>
-			<td>Custom Field 1 (Maximum length: 100).</td>
+			<td>custom1</td>
+			<td>Custom Field 1 (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom_field2</td>
-			<td>Custom Field 2 (Maximum length: 100).</td>
+			<td>custom2</td>
+			<td>Custom Field 2 (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom_field3</td>
-			<td>Custom Field 3 (Maximum length: 100).</td>
+			<td>custom3</td>
+			<td>Custom Field 3 (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 	</tbody>
@@ -335,12 +293,12 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 
 __Example request:__
 
-`POST: key=api_public_key&version=1&request=get_payment_address&currency=btc&callback_url=https://www.test.com/payment/callback.php`
+`POST: key=api_public_key&version=1&request=get_deposit_address&currency=btc&callback=true`
 
 __Response:__
 
 The API always responds with a JSON string. [data] collection contains the important values:
-* __[address]__ is the payment address to show to the customer.
+* __[address]__ is the deposit address to show to the customer.
 
 __Response example:__
 
@@ -384,6 +342,16 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 			<td>Crypto currency to accept (btc, eth, ltc, usdt, bch, bdc, alc).</td>
 			<td><strong>Yes</strong></td>
 		</tr>
+        <tr>
+			<td>callback</td>
+			<td>Callback true or false (Default: false)</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>callback_url</td>
+			<td>URL for your callbacks. If not set it will use the callback url in your Edit Settings page if you have one set.</td>
+			<td>No</td>
+		</tr>
 		<tr>
 			<td>success_url</td>
 			<td>Success url to be redirect after a payment successful.</td>
@@ -400,23 +368,18 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>callback_url</td>
-			<td>URL for your callbacks. If not set it will use the callback url in your Edit Settings page if you have one set.</td>
+			<td>custom1</td>
+			<td>Custom Field 1 (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom_field1</td>
-			<td>Custom Field 1 (Maximum length: 100).</td>
+			<td>custom2</td>
+			<td>Custom Field 2 (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom_field2</td>
-			<td>Custom Field 2 (Maximum length: 100).</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>custom_field3</td>
-			<td>Custom Field 3 (Maximum length: 100).</td>
+			<td>custom3</td>
+			<td>Custom Field 3 (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 	</tbody>
@@ -424,7 +387,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 
 __Example request:__
 
-`POST: key=api_public_key&version=1&request=create_payment&mode=1&currency=btc&callback_url=https://www.test.com/payment/callback.php`
+`POST: key=api_public_key&version=1&request=create_payment&mode=1&currency=btc&callback=true&callback_url=https://www.mywebsite.com/payment/callback.php`
 
 __Response:__
 
@@ -490,18 +453,18 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom_field1</td>
-			<td>Custom Field 1 (Maximum length: 100).</td>
+			<td>custom1</td>
+			<td>Custom Field 1 (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom_field2</td>
-			<td>Custom Field 2 (Maximum length: 100).</td>
+			<td>custom2</td>
+			<td>Custom Field 2 (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom_field3</td>
-			<td>Custom Field 3 (Maximum length: 100).</td>
+			<td>custom3</td>
+			<td>Custom Field 3 (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 	</tbody>
@@ -527,12 +490,12 @@ A callback is sent every time a new block is mined. To stop further callbacks, r
 		<tr>
 			<td>id</td>
 			<td>Callback identifier</td>
-			<td>-</td>
+			<td>&nbsp;</td>
 		</tr>
         <tr>
 			<td>version</td>
 			<td>API version</td>
-			<td>-</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>auth</td>
@@ -542,17 +505,12 @@ A callback is sent every time a new block is mined. To stop further callbacks, r
 		<tr>
 			<td>type</td>
 			<td>Callback type</td>
-			<td>payment, withdrawal</td>
+			<td>deposit, payment, withdrawal</td>
 		</tr>
 		<tr>
-			<td>status_code</td>
-			<td>Status code</td>
-			<td>-</td>
-		</tr>
-		<tr>
-			<td>status_text</td>
-			<td>Status text</td>
-			<td>-</td>
+			<td>status</td>
+            <td>Callback / Transaction Status</td>
+			<td><a href="#callback-status-code">(see table below for details)</a></td>
 		</tr>
 		<tr>
 			<td>currency</td>
@@ -562,47 +520,47 @@ A callback is sent every time a new block is mined. To stop further callbacks, r
         <tr>
 			<td>payment_id</td>
 			<td>Identifier of 'create_payment' api</td>
-			<td>-</td>
+			<td>&nbsp;</td>
 		</tr>
         <tr>
 			<td>ref_id</td>
 			<td>Identifier of acpay console transaction</td>
-			<td>-</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>transaction_hash</td>
 			<td>Blockchain Transaction hash</td>
-			<td>-</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>transaction_amount</td>
 			<td>Blockchain Transaction amount</td>
-			<td>-</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>transaction_to</td>
 			<td>To address</td>
-			<td>-</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>confirmations</td>
 			<td>Confirmation count of transaction</td>
-			<td>-</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td>custom_field1</td>
-			<td>Custom Field 1</td>
-			<td>-</td>
+			<td>custom1</td>
+			<td>Custom Field 1 (Maximum length: 50)</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td>custom_field2</td>
-			<td>Custom Field 2</td>
-			<td>-</td>
+			<td>custom2</td>
+			<td>Custom Field 2 (Maximum length: 50)</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td>custom_field3</td>
-			<td>Custom Field 3</td>
-			<td>-</td>
+			<td>custom3</td>
+			<td>Custom Field 3 (Maximum length: 50)</td>
+			<td>&nbsp;</td>
 		</tr>
 	</tbody>
 </table>
@@ -615,8 +573,7 @@ __Callback example:__
     "version": "1",
     "auth": "hmac",
     "type": "payment",
-    "status_code": "200",
-    "status_text": "done",
+    "status": "200",
     "currency": "btc",
     "payment_id": "2eff1b3ebba455a4ba64dea5c1d7a8f7",
     "ref_id": "9f1a7ec862ba0d44413e71fc5aa936c3",
@@ -624,15 +581,59 @@ __Callback example:__
     "transaction_amount": "1.2",
     "transaction_to": "3A364JM2HEjuWrhBKC6phyDMFSFcWzHzKQ",
     "confirmations": "3",
-    "custom_field1": "",
-    "custom_field2": "",
-    "custom_field3": ""
+    "custom1": "",
+    "custom2": "",
+    "custom3": ""
 }
 ```
 
 __PHP Example:__
 
 https://github.com/alcoldev/acpay-api/blob/master/php/callback.php
+
+## Callback Status Code
+
+<table>
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Text</th>
+            <th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+        <tr>
+            <td>100</td>
+            <td>Pending</td>
+            <td>Transaction not included in the blockchain</td>
+        </tr>
+        <tr>
+            <td>101</td>
+            <td>Waiting</td>
+            <td>Wait for user or merchant confirmation</td>
+        </tr>
+        <tr>
+            <td>102</td>
+            <td>In progress</td>
+            <td>Transaction included in block</td>
+        </tr>
+        <tr>
+            <td>103</td>
+            <td>Cancel</td>
+            <td>Transaction Canceled</td>
+        </tr>
+        <tr>
+            <td>200</td>
+            <td>Completed</td>
+            <td>Secure confirmation / Transaction complete</td>
+        </tr>
+        <tr>
+            <td>201</td>
+            <td>Confirmed</td>
+            <td>Minimal secure confirmation</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Request Limit
 
