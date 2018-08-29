@@ -38,7 +38,7 @@ if (empty($_SERVER['HTTP_HMAC'])) {
     error('No HMAC Signature');
 }
 
-$hmac_string = hash_hmac("sha512", trim($raw_input), trim($api_secret));
+$hmac_string = hash_hmac("sha512", trim($raw_input), trim($api_secret_key));
 if (function_exists('hash_equals')) {
     if (!hash_equals($hmac_string, $_SERVER['HTTP_HMAC'])) {
         error('HMAC Signature Error');

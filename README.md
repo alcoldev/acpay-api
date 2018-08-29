@@ -433,19 +433,24 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 			<td><strong>Yes</strong></td>
 		</tr>
 		<tr>
-			<td>amount</td>
-			<td>The amount of the withdrawal in the currency below.</td>
-			<td><strong>Yes</strong></td>
-		</tr>
-		<tr>
 			<td>currency</td>
 			<td>Crypto currency to accept (btc, eth, ltc, usdt, bch, bdc, alc)</td>
+			<td><strong>Yes</strong></td>
+		</tr>
+        <tr>
+			<td>amount</td>
+			<td>The amount of the withdrawal in the currency below.</td>
 			<td><strong>Yes</strong></td>
 		</tr>
         <tr>
 			<td>address</td>
 			<td>To address</td>
 			<td><strong>Yes</strong></td>
+		</tr>
+        <tr>
+			<td>callback</td>
+			<td>Callback true or false (Default: false)</td>
+			<td>No</td>
 		</tr>
 		<tr>
 			<td>callback_url</td>
