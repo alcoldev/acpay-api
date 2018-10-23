@@ -5,7 +5,7 @@ function error($msg) {
     die('Error: '.$msg);
 }
 function done() {
-    die('OK');
+    die('[OK]');
 }
 function required_params_check(&$param) {
     if (empty($param['id'])) return FALSE;
@@ -17,7 +17,7 @@ function required_params_check(&$param) {
     return TRUE;
 }
 
-if (!isset($api_secret_key) || !$api_secret_key) {
+if (empty($api_secret_key)) {
     error('No API Secret Key');
 }
 
@@ -59,15 +59,13 @@ if ($type=='deposit') {
     $transaction_amount = !empty($_POST['transaction_amount'])?floatval($_POST['transaction_amount']):0;
     $transaction_to = !empty($_POST['transaction_to'])?$_POST['transaction_to']:'';
     $confirmations = !empty($_POST['confirmations'])?intval($_POST['confirmations']):0;
-    $custom1 = !empty($_POST['custom1'])?$_POST['custom1']:'';
-    $custom2 = !empty($_POST['custom2'])?$_POST['custom2']:'';
-    $custom3 = !empty($_POST['custom3'])?$_POST['custom3']:'';
+    $custom_field = !empty($_POST['custom_field'])?$_POST['custom_field']:'';
     if ($status == 200 || $status == 201) {
         if ($confirmations>=5) {
             // Payment example
             $deposit_id = 'N291102';
             $deposit_amount = 2.3;
-            if ($custom1==$deposit_id && $transaction_amount==$deposit_amount) {
+            if ($custom_field==$deposit_id && $transaction_amount==$deposit_amount && $_POST['currency']=='btc') {
                 // done
                 done();
             }
@@ -81,15 +79,13 @@ else if ($type=='payment') {
     $transaction_amount = !empty($_POST['transaction_amount'])?floatval($_POST['transaction_amount']):0;
     $transaction_to = !empty($_POST['transaction_to'])?$_POST['transaction_to']:'';
     $confirmations = !empty($_POST['confirmations'])?intval($_POST['confirmations']):0;
-    $custom1 = !empty($_POST['custom1'])?$_POST['custom1']:'';
-    $custom2 = !empty($_POST['custom2'])?$_POST['custom2']:'';
-    $custom3 = !empty($_POST['custom3'])?$_POST['custom3']:'';
+    $custom_field = !empty($_POST['custom_field'])?$_POST['custom_field']:'';
     if ($status == 200 || $status == 201) {
         if ($confirmations>=5) {
             // Payment example
             $order_id = 'N399281';
             $order_amount = 2.3;
-            if ($custom1==$order_id && $transaction_amount==$order_amount) {
+            if ($custom_field==$order_id && $transaction_amount==$order_amount && $_POST['currency']=='btc') {
                 // done
                 done();
             }
@@ -101,13 +97,11 @@ else if ($type=='withdrawal') {
     $transaction_hash = !empty($_POST['transaction_hash'])?$_POST['transaction_hash']:'';
     $transaction_amount = !empty($_POST['transaction_amount'])?floatval($_POST['transaction_amount']):0;
     $transaction_to = !empty($_POST['transaction_to'])?$_POST['transaction_to']:'';
-    $custom1 = !empty($_POST['custom1'])?$_POST['custom1']:'';
-    $custom2 = !empty($_POST['custom2'])?$_POST['custom2']:'';
-    $custom3 = !empty($_POST['custom3'])?$_POST['custom3']:'';
+    $custom_field = !empty($_POST['custom_field'])?$_POST['custom_field']:'';
     if ($status == 200 || $status == 201) {
         // Withdrawal example
-        $withdraw_id = 'bad2c5d9e43f355c0a';
-        if ($custom1==$withdraw_id) {
+        $withdraw_id = 'bqw2c5d9e43f355c0a';
+        if ($custom_field==$withdraw_id) {
             // done
             done();
         }

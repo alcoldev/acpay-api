@@ -5,7 +5,7 @@
 class AcpayAPI {
     private $api_public_key;
     private $api_secret_key;
-    private $api_url = 'https://api.acpay.com';
+    private $api_url = 'https://api.acpay.com/v1/';
     private $curl = null;
 
     public function __construct($api_public_key, $api_secret_key, $api_url=null) {
@@ -106,7 +106,6 @@ class AcpayAPI {
     }
 
     public function call($request, $params = array()) {
-        $params['version'] = 1;
         $params['key'] = $this->api_public_key;
         $params['request'] = $request;
         

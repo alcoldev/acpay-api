@@ -1,7 +1,8 @@
 # ACPAY API
 The ACPAY API will provide access to our payment services and information to our sellers.<br>
-API calls are implemented as HTTP POST calls to https://api.acpay.com<br>
-API Version: v1.0
+API calls are implemented as HTTP POST calls to https://api.acpay.com/v1/<br>
+
+__API Version: v1.0__
 
 ## API Setup
 The only setup needed is to go to the API Keys page and generate an API key. You will be given a secret and public key used to authenticate your API calls. Make sure you don't share your secret key with any 3rd parties!
@@ -15,11 +16,11 @@ Every API call has a SHA-512 HMAC signature generated with your secret key. Our 
 
 The HMAC signature is created from the full raw POST data of your request. For example if your API secret key was "api_secret_key" and public key was "api_public_key" and you were using the get_payment_address function the raw request might look like:
 
-`currency=btc&key=api_public_key&request=get_payment_address&version=1`
+`currency=btc&key=api_public_key&request=get_deposit_address`
 
 and the HMAC would be:
 
-`b31081d9c758fa9c66325ecf8cfa3580f3553f1a644bf4c96516eab99a62a8654ab7ceeac2870d8eb2c984e473f87274921d2a3daafb2e1a575cafde75dc7d2d`
+`8bee1a1a2bd1d24d70ddbcc5ce30e9fb3220e051f72aed285f77ff60bdb12aa8268fb9739944207f1d1219149f3210f6cdac7d463fb34e8f7a4d4619b5ea099a`
 
 ## API Response
 The API will return an array with 1 or 2 elements: 'valid' and 'result'. The result will always have an 'valid' field. If its value is 'true' (boolean) the API call was a success, otherwise it will contain an error message. If there is data to return to you, it will be stored as an array in the 'result' element.
@@ -63,27 +64,27 @@ __Support crypto currencies:__
 	</thead>
 	<tbody>
 		<tr>
-			<td>btc</td>
-			<td>BTC</td>
-			<td>Bitcoin</td>
-			<td>Maintenance</td>
-		</tr>
-		<tr>
 			<td>eth</td>
 			<td>ETH</td>
 			<td>Ethereum</td>
 			<td><strong>Available</strong></td>
 		</tr>
 		<tr>
-			<td>ltc</td>
-			<td>LTC</td>
-			<td>Litecoin</td>
+			<td>bdc</td>
+			<td>BDC</td>
+			<td>Bdcoin</td>
+			<td><strong>Available</strong></td>
+		</tr>
+		<tr>
+			<td>btc</td>
+			<td>BTC</td>
+			<td>Bitcoin</td>
 			<td>Maintenance</td>
 		</tr>
 		<tr>
-			<td>usdt</td>
-			<td>USDT</td>
-			<td>Tether</td>
+			<td>ltc</td>
+			<td>LTC</td>
+			<td>Litecoin</td>
 			<td>Maintenance</td>
 		</tr>
 		<tr>
@@ -93,16 +94,34 @@ __Support crypto currencies:__
 			<td>Maintenance</td>
 		</tr>
 		<tr>
-			<td>bdc</td>
-			<td>BDC</td>
-			<td>Bdcoin</td>
-			<td><strong>Available</strong></td>
+			<td>usdt</td>
+			<td>USDT</td>
+			<td>Tether</td>
+			<td>Maintenance</td>
+		</tr>
+		<tr>
+			<td>dash</td>
+			<td>DASH</td>
+			<td>Dash</td>
+			<td>Maintenance</td>
+		</tr>
+		<tr>
+			<td>zec</td>
+			<td>ZEC</td>
+			<td>Zcash</td>
+			<td>Maintenance</td>
+		</tr>
+		<tr>
+			<td>qtum</td>
+			<td>QTUM</td>
+			<td>Qtum</td>
+			<td>Maintenance</td>
 		</tr>
 		<tr>
 			<td>alc</td>
 			<td>ALC</td>
 			<td>Alcash</td>
-			<td><strong>Available</strong></td>
+			<td>Maintenance</td>
 		</tr>
 	</tbody>
 </table>
@@ -125,17 +144,11 @@ __Support fiat currencies:__
 			<td>US Dollar</td>
 			<td><strong>Available</strong></td>
 		</tr>
-		<tr>
-			<td>eur</td>
-			<td>EUR</td>
-			<td>Euro</td>
-			<td><strong>Available</strong></td>
-		</tr>
 	</tbody>
 </table>
 
 ## API Call
-All POST requests must be send to the url below, including the HMAC authentication code. https://api.acpay.com<br>
+All POST requests must be send to the url below, including the HMAC authentication code. https://api.acpay.com/v1/<br>
 
 __PHP Example:__
 
@@ -165,7 +178,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 	
 __Example request:__
 
-`POST: key=api_public_key&version=1&request=currencies`
+`POST: key=api_public_key&request=currencies`
 
 __Response:__
 
@@ -207,7 +220,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 		</tr>
 		<tr>
 			<td>currency</td>
-			<td>Fiat currency to accept (usd, eur)</td>
+			<td>Fiat currency to accept (usd)</td>
 			<td>No</td>
 		</tr>
 	</tbody>
@@ -215,7 +228,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 
 __Example request:__
 
-`POST: key=api_public_key&version=1&request=rates&currency=usd`
+`POST: key=api_public_key&request=rates&currency=usd`
 
 __Response:__
 
@@ -229,10 +242,12 @@ __Response example:__
     "result": {
         "usd": {
             "btc": {
-                "rate": 6702.33928172
+                "rate": 6702.33928172,
+                "last_update": 1539288831
             },
             "eth": {
-                "rate": 305.22915962
+                "rate": 305.22915962,
+                "last_update": 1539288831
             }
         }
     }
@@ -274,18 +289,8 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom1</td>
-			<td>Custom Field 1 (Maximum length: 50).</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>custom2</td>
-			<td>Custom Field 2 (Maximum length: 50).</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>custom3</td>
-			<td>Custom Field 3 (Maximum length: 50).</td>
+			<td>custom_field</td>
+			<td>Custom Field (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 	</tbody>
@@ -293,7 +298,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 
 __Example request:__
 
-`POST: key=api_public_key&version=1&request=get_deposit_address&currency=btc&callback=true`
+`POST: key=api_public_key&request=get_deposit_address&currency=btc&callback=true`
 
 __Response:__
 
@@ -311,7 +316,12 @@ __Response example:__
 }
 ```
 
-## Create Payment
+__Get Deposit UI:__
+
+* Use: https://pay.acpay.com/{deposit_address}
+* Example: https://pay.acpay.com/0x2073eb3be1a41908e0353427da7f16412a01ae71
+
+## <strike>Create Payment</strike> (Maintenance)
 
 Payment address with Payment UI support
 
@@ -330,11 +340,6 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 		<tr>
 			<td>request</td>
 			<td>create_payment</td>
-			<td><strong>Yes</strong></td>
-		</tr>
-		<tr>
-			<td>mode</td>
-			<td>Payment mode (Currently only '1' support)</td>
 			<td><strong>Yes</strong></td>
 		</tr>
 		<tr>
@@ -368,18 +373,8 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom1</td>
-			<td>Custom Field 1 (Maximum length: 50).</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>custom2</td>
-			<td>Custom Field 2 (Maximum length: 50).</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>custom3</td>
-			<td>Custom Field 3 (Maximum length: 50).</td>
+			<td>custom_field</td>
+			<td>Custom Field (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 	</tbody>
@@ -387,7 +382,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 
 __Example request:__
 
-`POST: key=api_public_key&version=1&request=create_payment&mode=1&currency=btc&callback=true&callback_url=https://www.mywebsite.com/payment/callback.php`
+`POST: key=api_public_key&request=create_payment&mode=1&currency=btc&callback=true&callback_url=https://www.mywebsite.com/payment/callback.php`
 
 __Response:__
 
@@ -410,10 +405,10 @@ __Response example:__
 
 __Get Payment UI:__
 
-* Use: http://pay.acpay.com/{payment_id}
-* Example: http://pay.acpay.com/d024d82c22e451d4642b1ae91ec43dfe7b42f7f8ce0
+* Use: https://pay.acpay.com/{payment_id}
+* Example: https://pay.acpay.com/d024d82c22e451d4642b1ae91ec43dfe7b42f7f8ce0
 
-## Create Withdrawal
+## <strike>Create Withdrawal</strike> (Maintenance)
 
 __Parameters:__
 
@@ -444,7 +439,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 		</tr>
         <tr>
 			<td>address</td>
-			<td>To address</td>
+			<td>To crypto address</td>
 			<td><strong>Yes</strong></td>
 		</tr>
         <tr>
@@ -458,18 +453,8 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 			<td>No</td>
 		</tr>
 		<tr>
-			<td>custom1</td>
-			<td>Custom Field 1 (Maximum length: 50).</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>custom2</td>
-			<td>Custom Field 2 (Maximum length: 50).</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>custom3</td>
-			<td>Custom Field 3 (Maximum length: 50).</td>
+			<td>custom_field</td>
+			<td>Custom Field (Maximum length: 50).</td>
 			<td>No</td>
 		</tr>
 	</tbody>
@@ -477,11 +462,11 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 
 __Example request:__
 
-`POST: key=api_public_key&version=1&request=create_withdrawal&amount=1.2&currency=btc&callback_url=https://www.test.com/payment/callback.php`
+`POST: key=api_public_key&request=create_withdrawal&amount=1.2&currency=btc&callback_url=https://www.test.com/payment/callback.php`
 
 ## Callback
 
-A callback is sent every time a new block is mined. To stop further callbacks, reply with the "OK" Text. See code sample below.
+A callback is sent every time a new block is mined. To stop further callbacks, reply with the "[OK]" Text. See code sample below.
 
 <table>
 	<thead>
@@ -553,18 +538,8 @@ A callback is sent every time a new block is mined. To stop further callbacks, r
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td>custom1</td>
-			<td>Custom Field 1 (Maximum length: 50)</td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td>custom2</td>
-			<td>Custom Field 2 (Maximum length: 50)</td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td>custom3</td>
-			<td>Custom Field 3 (Maximum length: 50)</td>
+			<td>custom_field</td>
+			<td>Custom Field</td>
 			<td>&nbsp;</td>
 		</tr>
 	</tbody>
@@ -577,18 +552,15 @@ __Callback example:__
     "id": "a514e32fcae48631f66c472d999aa0dd",
     "version": "1",
     "auth": "hmac",
-    "type": "payment",
+    "type": "deposit",
     "status": "200",
     "currency": "btc",
-    "payment_id": "2eff1b3ebba455a4ba64dea5c1d7a8f7",
     "ref_id": "9f1a7ec862ba0d44413e71fc5aa936c3",
     "transaction_hash": "a321022f8ba56e6fbb3195123d266905757219ae0f625eb29fec48dc018269df",
     "transaction_amount": "1.2",
     "transaction_to": "3A364JM2HEjuWrhBKC6phyDMFSFcWzHzKQ",
     "confirmations": "3",
-    "custom1": "",
-    "custom2": "",
-    "custom3": ""
+    "custom_field": ""
 }
 ```
 
@@ -647,4 +619,3 @@ The system is designed to process thousands of transactions per second, so we do
 ## What to use as a payout address?
 
 You will need payout addresses for all crypto currencies you want to accept. Only you will have access to your payout wallets. You can use any online wallet, service or exchange of your choice. If you don't have one, consider reading our Wallet Guide
-
