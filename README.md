@@ -358,7 +358,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 		</tr>
         <tr>
 			<td>address</td>
-			<td>To crypto address</td>
+			<td>Receiving crypto-currency address</td>
 			<td><strong>Yes</strong></td>
 		</tr>
         <tr>
@@ -381,7 +381,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 
 __Example request:__
 
-`POST: key=api_public_key&request=create_withdrawal&amount=1.2&currency=btc&callback_url=https://www.test.com/payment/callback.php`
+`POST: key=api_public_key&request=create_withdrawal&currency=btc&amount=1.2&address=0x...&callback=true&callback_url=https://www.test.com/payment/callback.php&custom_field=U929281`
 
 __Response:__
 
