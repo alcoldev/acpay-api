@@ -64,26 +64,6 @@ class AcpayAPI {
         return false;
     }
 
-    public function create_payment(&$result, $mode, $currency, $etc=array()) {
-        $result = null;
-        $params = array();
-        $params['mode'] = $mode;
-        $params['currency'] = $currency;
-        if (is_array($etc) && count($etc)>0) {
-            foreach($etc as $key=>$value) {
-                $params[$key] = $value;
-            }
-        }
-        $call = $this->call('create_payment',$params);
-        if ($call && is_array($call)) {
-            $result = $call;
-            if ($call['valid']===true) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public function create_withdrawal(&$result, $amount, $currency, $address, $etc=array()) {
         $result = null;
         $params = array();

@@ -61,31 +61,11 @@ if ($type=='deposit') {
     $confirmations = !empty($_POST['confirmations'])?intval($_POST['confirmations']):0;
     $custom_field = !empty($_POST['custom_field'])?$_POST['custom_field']:'';
     if ($status == 200 || $status == 201) {
-        if ($confirmations>=5) {
-            // Payment example
+        if ($confirmations>=3) {
+            // Deposit example
             $deposit_id = 'N291102';
-            $deposit_amount = 2.3;
+            $deposit_amount = 2.5;
             if ($custom_field==$deposit_id && $transaction_amount==$deposit_amount && $_POST['currency']=='btc') {
-                // done
-                done();
-            }
-        }
-    }
-}
-else if ($type=='payment') {
-    $payment_id = !empty($_POST['payment_id'])?$_POST['payment_id']:'';
-    $ref_id = !empty($_POST['ref_id'])?$_POST['ref_id']:'';
-    $transaction_hash = !empty($_POST['transaction_hash'])?$_POST['transaction_hash']:'';
-    $transaction_amount = !empty($_POST['transaction_amount'])?floatval($_POST['transaction_amount']):0;
-    $transaction_to = !empty($_POST['transaction_to'])?$_POST['transaction_to']:'';
-    $confirmations = !empty($_POST['confirmations'])?intval($_POST['confirmations']):0;
-    $custom_field = !empty($_POST['custom_field'])?$_POST['custom_field']:'';
-    if ($status == 200 || $status == 201) {
-        if ($confirmations>=5) {
-            // Payment example
-            $order_id = 'N399281';
-            $order_amount = 2.3;
-            if ($custom_field==$order_id && $transaction_amount==$order_amount && $_POST['currency']=='btc') {
                 // done
                 done();
             }
@@ -98,7 +78,7 @@ else if ($type=='withdrawal') {
     $transaction_amount = !empty($_POST['transaction_amount'])?floatval($_POST['transaction_amount']):0;
     $transaction_to = !empty($_POST['transaction_to'])?$_POST['transaction_to']:'';
     $custom_field = !empty($_POST['custom_field'])?$_POST['custom_field']:'';
-    if ($status == 200 || $status == 201) {
+    if ($status == 200) {
         // Withdrawal example
         $withdraw_id = 'bqw2c5d9e43f355c0a';
         if ($custom_field==$withdraw_id) {

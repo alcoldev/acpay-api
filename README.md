@@ -76,6 +76,12 @@ __Support crypto currencies:__
 			<td><strong>Available</strong></td>
 		</tr>
 		<tr>
+			<td>ttc</td>
+			<td>TTC</td>
+			<td>Test Token</td>
+			<td><strong>Available</strong></td>
+		</tr>
+		<tr>
 			<td>btc</td>
 			<td>BTC</td>
 			<td>Bitcoin</td>
@@ -275,7 +281,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 		</tr>
 		<tr>
 			<td>currency</td>
-			<td>Crypto currency to accept (btc, eth, ltc, usdt, bch, bdc, alc)</td>
+			<td>Crypto currency id</td>
 			<td><strong>Yes</strong></td>
 		</tr>
         <tr>
@@ -321,94 +327,7 @@ __Get Deposit UI:__
 * Use: https://pay.acpay.com/{deposit_address}
 * Example: https://pay.acpay.com/0x2073eb3be1a41908e0353427da7f16412a01ae71
 
-## <strike>Create Payment</strike> (Maintenance)
-
-Payment address with Payment UI support
-
-__Parameters:__
-
-API POST Fields (in addition to the Main Fields described in the <a href="#api-request">API Request</a>)
-<table>
-	<thead>
-		<tr>
-			<th>Field</th>
-			<th>Description</th>
-			<th>Required</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>request</td>
-			<td>create_payment</td>
-			<td><strong>Yes</strong></td>
-		</tr>
-		<tr>
-			<td>currency</td>
-			<td>Crypto currency to accept (btc, eth, ltc, usdt, bch, bdc, alc).</td>
-			<td><strong>Yes</strong></td>
-		</tr>
-        <tr>
-			<td>callback</td>
-			<td>Callback true or false (Default: false)</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>callback_url</td>
-			<td>URL for your callbacks. If not set it will use the callback url in your Edit Settings page if you have one set.</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>success_url</td>
-			<td>Success url to be redirect after a payment successful.</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>failure_url</td>
-			<td>Failure url to be redirected after a payment failure.</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>cancel_url</td>
-			<td>Cancel url to be redirected after a payment cancel.</td>
-			<td>No</td>
-		</tr>
-		<tr>
-			<td>custom_field</td>
-			<td>Custom Field (Maximum length: 50).</td>
-			<td>No</td>
-		</tr>
-	</tbody>
-</table>
-
-__Example request:__
-
-`POST: key=api_public_key&request=create_payment&mode=1&currency=btc&callback=true&callback_url=https://www.mywebsite.com/payment/callback.php`
-
-__Response:__
-
-The API always responds with a JSON string. [data] collection contains the important values:
-
-* __[address]__ is the payment address to show to the customer.
-* __[payment_id]__ is the unique identifier of the payment channel.
-
-__Response example:__
-
-```json
-{
-    "valid": true,
-    "result": {
-        "address": "0x2073eb3be1a41908e0353427da7f16412a01ae71",
-        "payment_id": "d024d82c22e451d4642b1ae91ec43dfe7b42f7f8ce0"
-    }
-}
-```
-
-__Get Payment UI:__
-
-* Use: https://pay.acpay.com/{payment_id}
-* Example: https://pay.acpay.com/d024d82c22e451d4642b1ae91ec43dfe7b42f7f8ce0
-
-## <strike>Create Withdrawal</strike> (Maintenance)
+## Create Withdrawal
 
 __Parameters:__
 
@@ -429,7 +348,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 		</tr>
 		<tr>
 			<td>currency</td>
-			<td>Crypto currency to accept (btc, eth, ltc, usdt, bch, bdc, alc)</td>
+			<td>Crypto currency id</td>
 			<td><strong>Yes</strong></td>
 		</tr>
         <tr>
@@ -464,6 +383,22 @@ __Example request:__
 
 `POST: key=api_public_key&request=create_withdrawal&amount=1.2&currency=btc&callback_url=https://www.test.com/payment/callback.php`
 
+__Response:__
+
+The API always responds with a JSON string. [data] collection contains the important values:
+* __[ref_id]__ is the Withdrawal Unique Reference Number of acpay backoffice.
+
+__Response example:__
+
+```json
+{
+    "valid": true,
+    "result": {
+        "ref_id": "793d6f37dbd811e88ace0af998f8ac2c"
+    }
+}
+```
+
 ## Callback
 
 A callback is sent every time a new block is mined. To stop further callbacks, reply with the "[OK]" Text. See code sample below.
@@ -495,7 +430,7 @@ A callback is sent every time a new block is mined. To stop further callbacks, r
 		<tr>
 			<td>type</td>
 			<td>Callback type</td>
-			<td>deposit, payment, withdrawal</td>
+			<td>deposit, withdrawal</td>
 		</tr>
 		<tr>
 			<td>status</td>
@@ -504,13 +439,8 @@ A callback is sent every time a new block is mined. To stop further callbacks, r
 		</tr>
 		<tr>
 			<td>currency</td>
-			<td>Crypto currency type</td>
-			<td>btc, eth, ltc, usdt, bch, bdc, alc</td>
-		</tr>
-        <tr>
-			<td>payment_id</td>
-			<td>Identifier of 'create_payment' api</td>
-			<td>&nbsp;</td>
+			<td>Crypto currency id</td>
+			<td>btc, eth, ltc, usdt, bch, bdc, alc, ttc ...</td>
 		</tr>
         <tr>
 			<td>ref_id</td>
@@ -610,6 +540,43 @@ https://github.com/alcoldev/acpay-api/blob/master/php/callback.php
             <td>Minimal secure confirmation</td>
         </tr>
     </tbody>
+</table>
+
+## Rules / Fees
+
+<table>
+	<thead>
+		<tr>
+			<th>Currency</th>
+			<th>Minimum Deposit</th>
+			<th>Minimum Withdrawal</th>
+			<th>Deposit Fee</th>
+			<th>Withdrawal Fee</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>eth</td>
+			<td>0.01 ETH</td>
+			<td>0.05 ETH</td>
+			<td>No deposit fee</td>
+			<td>0.005 ETH</td>
+		</tr>
+		<tr>
+			<td>bdc</td>
+			<td>20 BDC</td>
+			<td>100 BDC</td>
+			<td>No deposit fee</td>
+			<td>10 BDC</td>
+		</tr>
+        <tr>
+			<td>ttc</td>
+			<td>2 TTC</td>
+			<td>10 TTC</td>
+			<td>No deposit fee</td>
+			<td>1 TTC</td>
+		</tr>
+	</tbody>
 </table>
 
 ## Request Limit
