@@ -276,7 +276,7 @@ API POST Fields (in addition to the Main Fields described in the <a href="#api-r
 	<tbody>
 		<tr>
 			<td>request</td>
-			<td>get_payment_address</td>
+			<td>get_deposit_address</td>
 			<td><strong>Yes</strong></td>
 		</tr>
 		<tr>
