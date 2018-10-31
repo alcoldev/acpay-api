@@ -64,11 +64,11 @@ class AcpayAPI {
         return false;
     }
 
-    public function create_withdrawal(&$result, $amount, $currency, $address, $etc=array()) {
+    public function create_withdrawal(&$result, $currency, $amount, $address, $etc=array()) {
         $result = null;
         $params = array();
-        $params['amount'] = $amount;
         $params['currency'] = $currency;
+        $params['amount'] = $amount;
         $params['address'] = $address;
         if (is_array($etc) && count($etc)>0) {
             foreach($etc as $key=>$value) {
