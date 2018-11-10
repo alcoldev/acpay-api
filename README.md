@@ -53,105 +53,27 @@ Once registered, you can manage the currencies you want to integrate in the Memb
 
 __Support crypto currencies:__
 
-<table>
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Symbol</th>
-			<th>Name</th>
-			<th>Status</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>eth</td>
-			<td>ETH</td>
-			<td>Ethereum</td>
-			<td><strong>Available</strong></td>
-		</tr>
-		<tr>
-			<td>bdc</td>
-			<td>BDC</td>
-			<td>Bdcoin</td>
-			<td><strong>Available</strong></td>
-		</tr>
-		<tr>
-			<td>ttc</td>
-			<td>TTC</td>
-			<td>Test Token</td>
-			<td><strong>Available</strong></td>
-		</tr>
-		<tr>
-			<td>btc</td>
-			<td>BTC</td>
-			<td>Bitcoin</td>
-			<td>Maintenance</td>
-		</tr>
-		<tr>
-			<td>ltc</td>
-			<td>LTC</td>
-			<td>Litecoin</td>
-			<td>Maintenance</td>
-		</tr>
-		<tr>
-			<td>bch</td>
-			<td>BCH</td>
-			<td>Bitcoin Cash</td>
-			<td>Maintenance</td>
-		</tr>
-		<tr>
-			<td>usdt</td>
-			<td>USDT</td>
-			<td>Tether</td>
-			<td>Maintenance</td>
-		</tr>
-		<tr>
-			<td>dash</td>
-			<td>DASH</td>
-			<td>Dash</td>
-			<td>Maintenance</td>
-		</tr>
-		<tr>
-			<td>zec</td>
-			<td>ZEC</td>
-			<td>Zcash</td>
-			<td>Maintenance</td>
-		</tr>
-		<tr>
-			<td>qtum</td>
-			<td>QTUM</td>
-			<td>Qtum</td>
-			<td>Maintenance</td>
-		</tr>
-		<tr>
-			<td>alc</td>
-			<td>ALC</td>
-			<td>Alcash</td>
-			<td>Maintenance</td>
-		</tr>
-	</tbody>
-</table>
+|ID|Symbol|Name|Status|
+|--- |--- |--- |--- |
+|eth|ETH|Ethereum|Available|
+|bdc|BDC|Bdcoin|Available|
+|ttc|TTC|Test Token|Available|
+|btc|BTC|Bitcoin|Maintenance|
+|ltc|LTC|Litecoin|Maintenance|
+|bch|BCH|Bitcoin Cash|Maintenance|
+|usdt|USDT|Tether|Maintenance|
+|dash|DASH|Dash|Maintenance|
+|zec|ZEC|Zcash|Maintenance|
+|qtum|QTUM|Qtum|Maintenance|
+|alc|ALC|Alcash|Maintenance|
 
 __Support fiat currencies:__
 
-<table>
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Symbol</th>
-			<th>Name</th>
-			<th>Status</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>usd</td>
-			<td>USD</td>
-			<td>US Dollar</td>
-			<td><strong>Available</strong></td>
-		</tr>
-	</tbody>
-</table>
+|ID|Symbol|Name|Status|
+|--- |--- |--- |--- |
+|usd|USD|US Dollar|Available|
+|eur|EUR|Euro|Available|
+|cny|CNY|Chinese Yuan|Available|
 
 ## API Call
 All POST requests must be send to the url below, including the HMAC authentication code. https://api.acpay.com/v1/<br>
